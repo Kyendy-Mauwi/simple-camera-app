@@ -1,2 +1,2 @@
 # Hello there
-I was build using Natively AI
+I was build using natively.dev
