@@ -2,14 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/IconSymbol";
-import { GlassView } from "expo-glass-effect";
-import { useTheme } from "@react-navigation/native";
+import { colors } from "@/styles/commonStyles";
 
 export default function ProfileScreen() {
-  const theme = useTheme();
-
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]} edges={['top']}>
+    <SafeAreaView style={styles.safeArea} edges={['top']}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={[
@@ -17,28 +14,45 @@ export default function ProfileScreen() {
           Platform.OS !== 'ios' && styles.contentContainerWithTabBar
         ]}
       >
-        <GlassView style={[
-          styles.profileHeader,
-          Platform.OS !== 'ios' && { backgroundColor: theme.dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }
-        ]} glassEffectStyle="regular">
-          <IconSymbol name="person.circle.fill" size={80} color={theme.colors.primary} />
-          <Text style={[styles.name, { color: theme.colors.text }]}>John Doe</Text>
-          <Text style={[styles.email, { color: theme.dark ? '#98989D' : '#666' }]}>john.doe@example.com</Text>
-        </GlassView>
+        <View style={styles.profileHeader}>
+          <IconSymbol name="person.circle.fill" size={80} color={colors.primary} />
+          <Text style={styles.name}>Camera User</Text>
+          <Text style={styles.email}>camera.user@example.com</Text>
+        </View>
 
-        <GlassView style={[
-          styles.section,
-          Platform.OS !== 'ios' && { backgroundColor: theme.dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }
-        ]} glassEffectStyle="regular">
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Statistics</Text>
+          <View style={styles.statsRow}>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>0</Text>
+              <Text style={styles.statLabel}>Photos</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>1</Text>
+              <Text style={styles.statLabel}>Days Active</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>0</Text>
+              <Text style={styles.statLabel}>MB Used</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Settings</Text>
           <View style={styles.infoRow}>
-            <IconSymbol name="phone.fill" size={20} color={theme.dark ? '#98989D' : '#666'} />
-            <Text style={[styles.infoText, { color: theme.colors.text }]}>+1 (555) 123-4567</Text>
+            <IconSymbol name="camera.fill" size={20} color={colors.accent} />
+            <Text style={styles.infoText}>Camera Quality: High</Text>
           </View>
           <View style={styles.infoRow}>
-            <IconSymbol name="location.fill" size={20} color={theme.dark ? '#98989D' : '#666'} />
-            <Text style={[styles.infoText, { color: theme.colors.text }]}>San Francisco, CA</Text>
+            <IconSymbol name="photo.fill" size={20} color={colors.accent} />
+            <Text style={styles.infoText}>Auto-save Photos: On</Text>
           </View>
-        </GlassView>
+          <View style={styles.infoRow}>
+            <IconSymbol name="location.fill" size={20} color={colors.accent} />
+            <Text style={styles.infoText}>Location Services: Off</Text>
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -47,7 +61,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    // backgroundColor handled dynamically
+    backgroundColor: colors.background,
   },
   container: {
     flex: 1,
@@ -60,32 +74,63 @@ const styles = StyleSheet.create({
   },
   profileHeader: {
     alignItems: 'center',
+    backgroundColor: colors.card,
     borderRadius: 12,
     padding: 32,
     marginBottom: 16,
-    gap: 12,
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+    elevation: 2,
   },
   name: {
     fontSize: 24,
     fontWeight: 'bold',
-    // color handled dynamically
+    color: colors.text,
+    marginTop: 12,
   },
   email: {
     fontSize: 16,
-    // color handled dynamically
+    color: colors.textSecondary,
+    marginTop: 4,
   },
   section: {
+    backgroundColor: colors.card,
     borderRadius: 12,
     padding: 20,
-    gap: 12,
+    marginBottom: 16,
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+    elevation: 2,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.text,
+    marginBottom: 16,
+  },
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  statItem: {
+    alignItems: 'center',
+  },
+  statNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
+  statLabel: {
+    fontSize: 14,
+    color: colors.textSecondary,
+    marginTop: 4,
   },
   infoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    paddingVertical: 8,
   },
   infoText: {
     fontSize: 16,
-    // color handled dynamically
+    color: colors.text,
+    marginLeft: 12,
   },
 });

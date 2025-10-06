@@ -34,7 +34,15 @@
     "plugins": [
       "expo-font",
       "expo-router",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Natively to access your camera to take photos.",
+          "microphonePermission": "Allow Natively to access your microphone for video recording.",
+          "recordAudioAndroid": false
+        }
+      ]
     ],
     "scheme": "natively",
     "experiments": {
